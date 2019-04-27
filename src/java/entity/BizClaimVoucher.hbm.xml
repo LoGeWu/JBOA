@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="entity.BizClaimVoucher" table="BIZ_CLAIM_VOUCHER" schema="T223">
+        <id name="id" column="ID">
+            <generator class="increment"></generator>
+        </id>
+        <property name="createTime" column="CREATE_TIME"/>
+        <property name="modifyTime" column="MODIFY_TIME"/>
+        <property name="event" column="EVENT"/>
+        <property name="totalAccount" column="TOTAL_ACCOUNT"/>
+        <property name="status" column="STATUS"/>
+        <many-to-one name="sysEmployeeByNextDealSn" class="entity.SysEmployee" lazy="false">
+            <column name="NEXT_DEAL_SN" not-null="false"/>
+        </many-to-one>
+        <many-to-one name="sysEmployeeByCreateSn" class="entity.SysEmployee" lazy="false">
+            <column name="CREATE_SN" not-null="true"/>
+        </many-to-one>
+        <set name="bizCheckResultsById" inverse="true" lazy="false">
+            <key>
+                <column name="CLAIM_ID" />
+            </key>
+            <one-to-many not-found="ignore"  class="entity.BizCheckResult"/>
+        </set>
+        <set name="bizClaimVoucherDetailsById" inverse="true"  lazy="false">
+            <key>
+                <column name="MAIN_ID" />
+            </key>
+            <one-to-many not-found="ignore" class="entity.BizClaimVoucherDetail"/>
+        </set>
+    </class>
+</hibernate-mapping>

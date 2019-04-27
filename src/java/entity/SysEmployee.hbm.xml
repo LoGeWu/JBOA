@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="entity.SysEmployee" table="SYS_EMPLOYEE" schema="T223">
+        <id name="sn" column="SN"/>
+        <property name="name" column="NAME"/>
+        <property name="password" column="PASSWORD"/>
+        <property name="status" column="STATUS"/>
+        <many-to-one name="sysPositionByPositionId" class="entity.SysPosition" lazy="false">
+            <column name="POSITION_ID" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="sysDepartmentByDepartmentId" class="entity.SysDepartment" lazy="false">
+            <column name="DEPARTMENT_ID" not-null="true"/>
+        </many-to-one>
+        <set name="bizCheckResultsBySn" inverse="true" lazy="false">
+            <key>
+                <column name="CHECKER_SN" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="entity.BizCheckResult"/>
+        </set>
+        <set name="bizClaimVouchersBySn" inverse="true" lazy="false">
+            <key>
+                <column name="NEXT_DEAL_SN" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="entity.BizClaimVoucher"/>
+        </set>
+        <set name="bizClaimVouchersBySn_0" inverse="true" lazy="false" >
+            <key>
+                <column name="CREATE_SN" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="entity.BizClaimVoucher"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.ui.theme" value="simple"></constant>
+    <include file="struts-*.xml" ></include>
+
+    <package name="default" namespace="/" extends="struts-default">
+        <interceptors>
+            <interceptor name="myTimer" class="Inter.LoginInterceptor"></interceptor>
+            <interceptor-stack name="helloStack">
+                <!-- 引用默认栈 (一定要放到第一行)-->
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <!-- 引用自定义拦截器 -->
+                <interceptor-ref name="myTimer">
+                    <param name="excludeMethods">login,loginOut</param>
+                </interceptor-ref>
+            </interceptor-stack>
+
+        </interceptors>
+        <!-- 【执行拦截器】 -->
+        <default-interceptor-ref name="helloStack"></default-interceptor-ref>
+        <global-results>
+            <result name="login">login.jsp</result>
+        </global-results>
+
+    </package>
+
+</struts>

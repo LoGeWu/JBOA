@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+
+    <package name="claim"  extends="default">
+
+        <action name="*ClaimAction" class="action.ClaimAction" method="{1}" >
+            <result>list.jsp</result>
+            <result name="add" type="redirectAction">
+                <param name="actionName">queryClaimAction</param>
+                <param name="namespace">/</param>
+            </result>
+            <result name="infoOrUpd">{1}.jsp</result>
+            <result name="detail">{1}.jsp</result>
+            <result name="pay">Payzf.jsp</result>
+           <!-- <interceptor-ref name="myTimer">
+                <param name="excludeMethods">login,loginOut</param>
+            </interceptor-ref>-->
+        </action>
+
+
+    </package>
+
+</struts>
